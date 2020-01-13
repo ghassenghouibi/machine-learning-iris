@@ -2,18 +2,16 @@
 #include <stdlib.h>
 #include "init.h"
 
-void usage(){
-    printf("error incorrect arguments number <usage> iris file.txt\n");
-    exit(0);
-}
 
-int main(int argc,char *argv[]){ 
+int main(){ 
 
-    printf("Hello SOM \n");
-    if(argc!=2){
-        usage();
-    }
-    reading_file(argv[1]);
+   
+    iris* iris_tab=NULL;
+    //iris* iris_shuffled;
+    //iris* iris_average;
+    reading_file("iris_data.txt",iris_tab);
+   
+
 
 
     return 0;
