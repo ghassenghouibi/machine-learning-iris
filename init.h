@@ -21,10 +21,11 @@ struct iris{
     double  norm;
 };
 
-void  reading_file(char* filename,iris* tab);
-void  parsing_and_store_data(iris* head,char* data,int number);
-void  store_to_struct(double* values,char* name);
-void  print_node(iris* node,int size);
-void  normalize_vector(iris* node);
-int   number_of_line_in_file(char* filename);
-iris* allocate_memory(int size);
+iris*   reading_file(char* filename,iris* tab);
+void    parsing_and_store_data(iris* head,char* data,int number);
+void    store_to_struct(double* values,char* name);
+void    print_node(iris* node,int size);
+void    normalize_vector(iris* node);
+int     number_of_line_in_file(char* filename);
+iris*   allocate_memory(int size);
+double* calculate_average_vector(iris* tab);

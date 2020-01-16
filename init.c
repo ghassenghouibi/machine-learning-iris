@@ -1,6 +1,6 @@
 #include "init.h"
 
-void reading_file(char* filename,iris* tab){
+iris* reading_file(char* filename,iris* tab){
 
     FILE*   fp;
     char *  line = NULL;
@@ -28,15 +28,9 @@ void reading_file(char* filename,iris* tab){
     printf("\n");
     fclose(fp);
 
-    if (line)
-        free(line);
+    return tab;
 
-    exit(0);
-    
 }
-
-//w , label ,etat 
-//rayon,alpha
 
 void parsing_and_store_data(iris* tab,char* data,int number){
     const char * separator = ",";
@@ -52,6 +46,20 @@ void parsing_and_store_data(iris* tab,char* data,int number){
     
 }
 
+double* calculate_average_vector(iris* tab){
+    double average_vector[4]={0.0};
+    for(int i=0;i<150;i++){
+        for(int j=0;j<NUMBEROFDATA;j++){
+            average_vector[j]+=tab[i].vector[j];
+        }
+    }
+    printf("average vector ...\n");
+    for(int j=0;j<NUMBEROFDATA;j++){
+        printf("%lf ",average_vector[j]);    
+    }
+    printf("\n");
+    return average_vector;
+}
 
 void normalize_vector(iris* node){
     for(int k=0;k<150;k++){
