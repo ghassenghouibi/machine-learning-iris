@@ -55,7 +55,7 @@ double* calculate_average_vector(iris* tab){
     }
     printf("average vector ...\n");
     for(int j=0;j<NUMBEROFDATA;j++){
-        printf("%lf ",average_vector[j]);    
+        printf("%lf ",average_vector[j]/150.0);    
     }
     printf("\n");
     return average_vector;
