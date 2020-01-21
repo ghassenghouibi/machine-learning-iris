@@ -47,18 +47,33 @@ void parsing_and_store_data(iris* tab,char* data,int number){
 }
 
 double* calculate_average_vector(iris* tab){
-    double average_vector[4]={0.0};
-    for(int i=0;i<150;i++){
-        for(int j=0;j<NUMBEROFDATA;j++){
-            average_vector[j]+=tab[i].vector[j];
-        }
-    }
-    printf("average vector ...\n");
+    double* average_vector=malloc(NUMBEROFDATA*sizeof(double));
     for(int j=0;j<NUMBEROFDATA;j++){
-        printf("%lf ",average_vector[j]/150.0);    
+        double res=0.0;
+        for(int i=0;i<150;i++){
+            res+=tab[i].vector[j];
+        }
+        printf("%lf ",res/150.0);
+        average_vector[j]=res/150.0;
     }
-    printf("\n");
+
     return average_vector;
+}
+
+double* calculate_max_vector(double* vector,double value){
+    double* new_vector=malloc(NUMBEROFDATA* sizeof(double));
+    for(int i=0;i<NUMBEROFDATA;i++){
+        new_vector[i]=vector[i]+value;
+    }
+    return new_vector;
+}
+
+double* calculate_min_vector(double* vector,double value){
+    double* new_vector=malloc(NUMBEROFDATA* sizeof(double));
+    for(int i=0;i<NUMBEROFDATA;i++){
+        new_vector[i]=vector[i]-value;
+    }
+    return new_vector;
 }
 
 void normalize_vector(iris* node){
@@ -84,4 +99,12 @@ void print_node(iris* node,int size){
         }
         printf("%s [%lf]",node[i].iris_name,node[i].norm);
     }
+}
+
+void print_vector(double* vector){
+    printf("vector values -> ");
+    for(int i=0;i<NUMBEROFDATA;i++){
+        printf("%lf ",vector[i]);
+    }
+    printf("\n");
 }
