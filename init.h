@@ -12,7 +12,11 @@
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
 #define NUMBEROFDATA 4
+#define NUMBEROFLINE 150
 #define SIZEOFNAMES 100
+#define LINE 10
+#define COLUMN 6
+
 typedef struct iris iris;
 typedef struct neurons neurons;
 typedef struct map map;
@@ -30,10 +34,12 @@ struct neurons{
 };
 
 struct map{
-    int line;
-    int column;
-    neurons** map;
-}
+    int     line;
+    int     column;
+    double  alpha;
+    int     neighborhood_radius;
+    neurons** table;
+};
 
 iris*   allocate_memory(int size);
 iris*   reading_file(char* filename,iris* tab);
@@ -46,3 +52,6 @@ double* calculate_average_vector(iris* tab);
 double* calculate_max_vector(double* vector,double value);
 double* calculate_min_vector(double* vector,double value);
 void    print_vector(double* vector);
+double  random_value(double min, double max);
+map*    init_map(double* min_vector,double* max_vector);
+void    print_map(map* print_map);
