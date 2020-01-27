@@ -1,4 +1,4 @@
-#include "init.h"
+#include "utils.h"
 
 iris* reading_file(char* filename,iris* tab){
 
@@ -15,17 +15,12 @@ iris* reading_file(char* filename,iris* tab){
     tab=allocate_memory(size);
     
     int i=0;
-    while ((read = getline(&line, &len, fp)) != -1) {
+    while ((read = getline(&line, &len, fp))!=-1) {
         parsing_and_store_data(tab,line,i);
         ++i;
     }
     
-    print_node(tab,150);
-    normalize_vector(tab);
-    printf("\nAfter normalization \n");
-    print_node(tab,150);
-
-    printf("\n");
+    normalize_vector(tab);    
     fclose(fp);
 
     return tab;
@@ -53,7 +48,6 @@ double* calculate_average_vector(iris* tab){
         for(int i=0;i<150;i++){
             res+=tab[i].vector[j];
         }
-        printf("%lf ",res/150.0);
         average_vector[j]=res/150.0;
     }
 

@@ -1,4 +1,4 @@
-.PHONY: clean, mrproper
+.PHONY: clean
 
 CC = gcc
 CFLAGS = -W -Wall 
@@ -7,20 +7,17 @@ CFLAGS = -W -Wall
 all: main.o init.o utils.o som.o
 	$(CC) main.o init.o utils.o som.o -lm -o iris
 
-utils.o : init.h
+utils.o : utils.h
 	$(CC) -c utils.c -o utils.o $(CFLAGS)
 
-main.o: init.h
+main.o: utils.h
 	$(CC) -c main.c -o main.o $(CFLAGS)
 
-init.o: init.h
+init.o: utils.h
 	$(CC) -c init.c -o init.o $(CFLAGS)
 
-som.o: init.h
+som.o: utils.h
 	$(CC) -c som.c -o som.o $(CFLAGS)
 
 clean:
-	rm -rf *.bak rm -rf *.o
-
-mrproper: clean
-	rm -rf iris
+	rm -rf *.o

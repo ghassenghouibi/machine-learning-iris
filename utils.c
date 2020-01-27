@@ -1,11 +1,10 @@
-#include "init.h"
+#include "utils.h"
 /**
 * function to count number of lines in file
 * @arg filename
 **/
 int number_of_line_in_file(char* filename){
     FILE*   fp;
-    char *  line = NULL;
     
     fp = fopen(filename,"r");
     if (fp == NULL)
@@ -13,8 +12,7 @@ int number_of_line_in_file(char* filename){
 
     int lines=1;
     while(!feof(fp)){
-    line = fgetc(fp);
-        if(line == '\n'){
+        if(fgetc(fp) == '\n'){
             lines++;
         }
     }
@@ -40,4 +38,16 @@ iris* allocate_memory(int size){
 
 double random_value(double min, double max){
 	return (double)((rand() / (double)(RAND_MAX + 1.0)) * (max - min) + min); 
+}
+
+int  random_int_value(int min, int max){
+	return (int)((rand() / (double)(RAND_MAX + 1.0)) * (max - min) + min); 
+}
+
+double distance_euclidienne(double* v1, double* v2){
+	double result = 0;
+	for (int i = 0; i < NUMBEROFDATA; i++){
+		result += pow((v2[i] - v1[i]),2) ;
+	}
+	return sqrt(result);
 }
