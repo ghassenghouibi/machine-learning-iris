@@ -4,14 +4,6 @@
 #include <math.h>
 #include <time.h>
 
-#define RED   "\x1B[31m"
-#define GRN   "\x1B[32m"
-#define YEL   "\x1B[33m"
-#define BLU   "\x1B[34m"
-#define MAG   "\x1B[35m"
-#define CYN   "\x1B[36m"
-#define WHT   "\x1B[37m"
-#define RESET "\x1B[0m"
 #define NUMBEROFDATA 4
 #define NUMBEROFLINE 150
 #define SIZEOFNAMES 100
@@ -47,21 +39,21 @@ struct map{
 
 iris*   allocate_memory(int size);
 iris*   reading_file(char* filename,iris* tab);
+map*    init_map(double* min_vector,double* max_vector);
 void    parsing_and_store_data(iris* head,char* data,int number);
 void    store_to_struct(double* values,char* name);
 void    print_node(iris* node,int size);
 void    normalize_vector(iris* node);
+void    print_vector(double* vector);
+void    neurons_learning(map* neurons_map,iris* iris_tab,int neighbor,double alpha,int iteration);
+void    apprentissage(map* neurons_map,iris* iris_tab,int voisin,int alpha,int iteration);
+void    detect(map* neurons_map,iris* iris_tab);
+void    show_map(map* neurons_map);
+void    print_map(map* print_map);
 int     number_of_line_in_file(char* filename);
+int     random_int_value(int min, int max);
+double  random_value(double min, double max);
+double  euclidean_distance(double* v1, double* v2);
 double* calculate_average_vector(iris* tab);
 double* calculate_max_vector(double* vector,double value);
 double* calculate_min_vector(double* vector,double value);
-void    print_vector(double* vector);
-double  random_value(double min, double max);
-map*    init_map(double* min_vector,double* max_vector);
-void    print_map(map* print_map);
-double  distance_euclidienne(double* v1, double* v2);
-int     random_int_value(int min, int max);
-void    neurons_learning(map* neurons_map,iris* iris_tab,int neighbor,int alpha,int iteration);
-void    apprentissage(map* neurons_map,iris* iris_tab,int voisin,int alpha,int iteration);
-void detect(map* neurons_map,iris* iris_tab);
-void show_map(map* neurons_map);

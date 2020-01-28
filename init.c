@@ -6,7 +6,7 @@ iris* reading_file(char* filename,iris* tab){
     char *  line = NULL;
     size_t  len  = 0;
     size_t  read;
-
+    size_t  eof= -1;
     fp = fopen(filename,"r");
     if (fp == NULL)
         exit(1);
@@ -15,7 +15,7 @@ iris* reading_file(char* filename,iris* tab){
     tab=allocate_memory(size);
     
     int i=0;
-    while ((read = getline(&line, &len, fp))!=-1) {
+    while ((read = getline(&line, &len, fp))!=eof) {
         parsing_and_store_data(tab,line,i);
         ++i;
     }

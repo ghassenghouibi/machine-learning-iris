@@ -1,8 +1,5 @@
 #include "utils.h"
-/**
-* function to count number of lines in file
-* @arg filename
-**/
+
 int number_of_line_in_file(char* filename){
     FILE*   fp;
     
@@ -19,9 +16,7 @@ int number_of_line_in_file(char* filename){
 
     return lines;
 }
-/**
-* function allocate memory to iris data struct
-**/
+
 iris* allocate_memory(int size){
 
     iris* tmp;
@@ -44,7 +39,7 @@ int  random_int_value(int min, int max){
 	return (int)((rand() / (double)(RAND_MAX + 1.0)) * (max - min) + min); 
 }
 
-double distance_euclidienne(double* v1, double* v2){
+double euclidean_distance(double* v1, double* v2){
 	double result = 0;
 	for (int i = 0; i < NUMBEROFDATA; i++){
 		result += pow((v2[i] - v1[i]),2) ;

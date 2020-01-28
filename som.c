@@ -56,11 +56,11 @@ void print_tab(int* tab){
         printf("%d ",tab[i]);
     }
 }
-void neurons_learning(map* neurons_map,iris* iris_tab,int neighbor,int alpha,int iteration){
-    
+
+void neurons_learning(map* neurons_map,iris* iris_tab,int neighbor,double alpha,int iteration){
     neurons **map=neurons_map->table;
     double initial_alpha=alpha;
-    int voisin=neighbor;
+    int neighbor_=neighbor;
     int *index=allocate_tab();
     int dec = iteration / neighbor, lbmu,cbmu=-1;
     double dmin = 1000.0,dtmp=0.0;
@@ -76,7 +76,7 @@ void neurons_learning(map* neurons_map,iris* iris_tab,int neighbor,int alpha,int
             dtmp=0.0;
             for(int k =0;k<LINE;k++){
                 for(int l =0;l<COLUMN;l++){
-                    dtmp=distance_euclidienne(ptr,map[k][l].data);
+                    dtmp=euclidean_distance(ptr,map[k][l].data);
                     if(dmin > dtmp){
                         dmin=dtmp;
                         lbmu=k;
@@ -84,20 +84,19 @@ void neurons_learning(map* neurons_map,iris* iris_tab,int neighbor,int alpha,int
                     }
                 }
             }
-            int vlb = (lbmu - neighbor >= 0)? lbmu - neighbor :0;
-            int vle = (lbmu + neighbor < neurons_map->line )? lbmu + neighbor : neurons_map->line - 1;
-            int vcb = (cbmu - neighbor >= 0)? cbmu - neighbor : 0;
-            int vce = (cbmu + neighbor < neurons_map->column)? cbmu + neighbor : neurons_map->column -1;
-            for(int ii=vlb;ii<=vle;ii++){
-                for(int jj=vcb ; jj <vce ; jj++){
-                    for(int kk =0; kk<NUMBEROFLINE ;kk++){
-                        map[ii][jj].data[kk] += (double) alpha * (ptr[kk] - map[ii][jj].data[kk]);
+            int ii_start = (lbmu - neighbor >= 0)? lbmu - neighbor :0;
+            int ii_finish = (lbmu + neighbor < neurons_map->line )? lbmu + neighbor : neurons_map->line - 1;
+            int jj_start = (cbmu - neighbor >= 0)? cbmu - neighbor : 0;
+            int jj_finish = (cbmu + neighbor < neurons_map->column)? cbmu + neighbor : neurons_map->column -1;
+            for(int ii=ii_start;ii<=ii_finish;ii++){
+                for(int jj=jj_start ; jj <jj_finish ; jj++){
+                    for(int kk =0; kk<NUMBEROFDATA ;kk++){
+                        map[ii][jj].data[kk] += (double)alpha * (ptr[kk] - map[ii][jj].data[kk]);
                     }
                 }
             }
-
         }
-        voisin +=(i % dec == 0 && voisin >1)? -1 :0;
+        neighbor_ +=(i % dec == 0 && neighbor_ >1)? -1 :0;
     }
     free(index);
     index=NULL;
@@ -113,9 +112,8 @@ void detect(map* neurons_map,iris* iris_tab){
 			dmin = 1000.0;
 			indice_iris = -1000;
 			for(int i = 0; i < NUMBEROFLINE ; i++){
-				dtemp = distance_euclidienne(map[l][c].data, iris_tab[i].vector);
-                dtemp-=0.9;
-				if(dmin > dtemp){
+				dtemp = euclidean_distance(map[l][c].data, iris_tab[i].vector);
+                if(dmin > dtemp){
 					dmin = dtemp;
 					indice_iris = i;
 				}
@@ -132,16 +130,16 @@ void show_map(map* neurons_map){
 	for(int l = 0; l < LINE; l++){
 		for(int c = 0; c < COLUMN ; c++){
 			if (strncmp(map[l][c].label, "Iris-setosa", 11) == 0)
-				printf("\033[0;33m 1");
+				printf("\033[0;34m * ");
 			else if (strncmp(map[l][c].label, "Iris-versicolor", 15) == 0)
-				printf("\033[0;31m 2 ");
+				printf("\033[0;31m - ");
 			else if (strncmp(map[l][c].label, "Iris-virginica", 14) == 0)
-				printf("\033[0;36m 3 ");
+				printf("\033[0;37m ^ ");
 		}
 		printf("\n");
 
 	}
-		printf("\033[0;33m Iris-setosa -----> 1     \n");
-		printf("\033[0;31m Iris-versicolor -----> 2 \n");
-		printf("\033[0;36m Iris-virginica -----> 3  \n");
+		printf("\033[0;34m Iris-setosa     -> * \n");
+		printf("\033[0;31m Iris-versicolor -> - \n");
+		printf("\033[0;37m Iris-virginica  -> ^ \n");
 }
