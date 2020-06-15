@@ -35,7 +35,7 @@ double random_value(double min, double max){
 	return (double)((rand() / (double)(RAND_MAX + 1.0)) * (max - min) + min); 
 }
 
-int  random_int_value(int min, int max){
+int random_int_value(int min, int max){
 	return (int)((rand() / (double)(RAND_MAX + 1.0)) * (max - min) + min); 
 }
 
